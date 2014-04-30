@@ -54,7 +54,7 @@ bikeShareApp.controller('FetchBikesCtrl', ['$scope', '$routeParams', '$http', fu
 					  var myLatlng = new google.maps.LatLng(arrLatitude,arrLongitude);
 
 					  var mapOptions = {
-					    zoom: 13,
+					    zoom: 15,
 					    center: myLatlng
 					  }
 					  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
