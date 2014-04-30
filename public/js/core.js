@@ -43,17 +43,33 @@ bikeShareApp.controller('FetchBikesCtrl', ['$scope', '$routeParams', '$http', fu
 
 	    //match array with routeparam id
 	    for (i=0; i < dataArr.length; i++){
+
+			var arrLongitude = dataArr[i].longitude;
+			var arrLatitude = dataArr[i].latitude;
+
 		    if($routeParams.bikeId)
 		    {
 		    	if (dataArr[i].id == $routeParams.bikeId){
 		    		$scope.results = dataArr[i];
+					  var myLatlng = new google.maps.LatLng(arrLatitude,arrLongitude);
+
+					  var mapOptions = {
+					    zoom: 13,
+					    center: myLatlng
+					  }
+					  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+					  var marker = new google.maps.Marker({
+					      position: myLatlng,
+					      map: map,
+					      title: 'Hello World!'
+					  });
 		    	}
 		    }
 		    else {
 		        $scope.results = dataArr;
 		    }
 	    }
-
 
 
 	    //find distance equation
@@ -90,30 +106,29 @@ bikeShareApp.controller('FetchBikesCtrl', ['$scope', '$routeParams', '$http', fu
 
 				var distanceType = "mi";
 
-			    var img = new Image();
-			    img.src = "http://maps.googleapis.com/maps/api/staticmap?center=" + arrLatitude + "," + arrLongitude + "&markers=blue&zoom=13&size=300x300&sensor=false";
+			    // var img = new Image();
+			    // img.src = "http://maps.googleapis.com/maps/api/staticmap?center=" + arrLatitude + "," + arrLongitude + "&markers=blue&zoom=13&size=300x300&sensor=false";
 
 				var milesAway = distance(pos.coords.longitude, pos.coords.latitude, arrLongitude, arrLatitude) * .6214;
 
 				//convert miles to feet when less than 0.1
 				if (milesAway < 0.1) {
 					milesAway = milesAway * 5280;
-					console.log(milesAway);
 					distanceType = "ft";
 				}
 
 				actualData.stationBeanList[i].milesAway = milesAway.toFixed(2) + ' ' + distanceType;	
 				actualData.stationBeanList[i].distanceType = distanceType;
-				actualData.stationBeanList[i].img = img;	
+				//actualData.stationBeanList[i].img = img;	
 
 			}
 
-
-			$scope.$apply(function(){ 
-				//$scope.miles = milesArr; 
-			});
+			$scope.$apply();
 			
 		};
+
+		
+
 
 		navigator.geolocation.getCurrentPosition(geoSuccess);
 

@@ -1,7 +1,8 @@
 <div ng-controller="FetchBikesCtrl" id="container">
     <h1>Bay Area Bike Share</h1>
     <div>{{results.stationName}}</div>
-    <a href="http://maps.google.com/?ie=UTF8&hq=&ll={{results.latitude}},{{results.longitutde}}"><img src="{{results.img.src}}" /></a>
+    <!-- <a href="http://maps.google.com/?ie=UTF8&hq=&ll={{results.latitude}},{{results.longitutde}}"><img src="{{results.img.src}}" /></a> -->
+    <div id="map-canvas"></div>
     <p>{{results.availableBikes}} available bikes</p>
     <p>{{results.availableDocks}} available docks</p>
 
