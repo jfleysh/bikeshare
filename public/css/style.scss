@@ -1,0 +1,14 @@
+#container {
+	h1 {
+		font-size:20px;
+	}
+	ul {
+		padding:0;
+		margin:0;
+		li {
+			list-style-type:none;
+			border-bottom:1px solid #ccc;
+			padding:10px 0 10px 0;
+		}
+	}
+}

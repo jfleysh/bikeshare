@@ -1,0 +1,10 @@
+<div ng-controller="FetchBikesCtrl" id="container">
+	<h1>Bay Area Bike Share</h1>
+	<ul>
+        <li clicklink ng-repeat="result in results | orderBy:['distanceType', 'milesAway']"><a ng-href="#/bikes/{{result.id}}">{{result.stationName}}</a>                 
+            <span>{{result.availableBikes}} / </span>
+            <span>{{result.availableDocks}}</span>
+            <div>{{result.milesAway}}</div>
+        </li>
+    </ul>
+</div>
