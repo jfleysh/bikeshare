@@ -1,14 +1,24 @@
 {
-  "name"         : "node-todo",
-  "version"      : "0.0.0",
-  "description"  : "Simple todo application.",
-  "main"         : "server.js",
-  "author"       : "Scotch",
-  "dependencies" : {
-    "express"    : "~3.4.4",
-    "mongoose"   : "~3.6.2"
-    },
-    "engines": {
-        "node": "0.6.18"
-    }
-  }
+  "name": "Bikeshare",
+  "version": "0.0.0",
+  "description": "Simple todo application.",
+  "main": "server.js",
+  "author": "Scotch",
+  "dependencies": {
+    "express": "~3.4.4",
+    "mongoose": "~3.6.2"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jfleysh/bikeshare.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jfleysh/bikeshare/issues"
+  },
+  "homepage": "https://github.com/jfleysh/bikeshare"
+}
