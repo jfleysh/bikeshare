@@ -25,53 +25,6 @@ bikeShareApp.controller('FetchBikesCtrl', ['$scope', '$routeParams', '$http', fu
 	$http.jsonp(url).
 	success(function (data) {
 
-		//parse data
-	    var actualData = JSON.parse(data[0].body);
-
-	    //create empty array for station names
-	    var dataArr = [];
-
-
-	    //for loop to parse through station names via json object
-	    for (i in actualData.stationBeanList) {
-	    	stations = actualData.stationBeanList[i];
-	    	dataArr.push(stations);
-	    }		    	
-
-	    //assign station names to list
-	    $scope.results = dataArr;
-
-	    //match array with routeparam id
-	    for (i=0; i < dataArr.length; i++){
-
-			var arrLongitude = dataArr[i].longitude;
-			var arrLatitude = dataArr[i].latitude;
-
-		    if($routeParams.bikeId)
-		    {
-		    	if (dataArr[i].id == $routeParams.bikeId){
-		    		$scope.results = dataArr[i];
-					  var myLatlng = new google.maps.LatLng(arrLatitude,arrLongitude);
-
-					  var mapOptions = {
-					    zoom: 15,
-					    center: myLatlng
-					  }
-					  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-					  var marker = new google.maps.Marker({
-					      position: myLatlng,
-					      map: map,
-					      title: 'Hello World!'
-					  });
-		    	}
-		    }
-		    else {
-		        $scope.results = dataArr;
-		    }
-	    }
-
-
 	    //find distance equation
 		function distance(lon1, lat1, lon2, lat2) {
 		  var R = 6371; // Radius of the earth in km
@@ -95,20 +48,60 @@ bikeShareApp.controller('FetchBikesCtrl', ['$scope', '$routeParams', '$http', fu
 		//mozilla geolocation callback
 		var geoSuccess = function(pos){
 
-			//empty miles array
-			//var milesArr = [];
+			$('#front').hide();
+
+				//parse data
+		    var actualData = JSON.parse(data[0].body);
+
+		    //create empty array for station names
+		    var dataArr = [];
+
+
+		    //for loop to parse through station names via json object
+		    for (i in actualData.stationBeanList) {
+		    	stations = actualData.stationBeanList[i];
+		    	dataArr.push(stations);
+		    }		    	
+
+		    //assign station names to list
+		    $scope.results = dataArr;
+
+		    //match array with routeparam id
+		    for (i=0; i < dataArr.length; i++){
+
+				var arrLongitude = dataArr[i].longitude;
+				var arrLatitude = dataArr[i].latitude;
+
+			    if($routeParams.bikeId)
+			    {
+			    	if (dataArr[i].id == $routeParams.bikeId){
+			    		$scope.results = dataArr[i];
+						  var myLatlng = new google.maps.LatLng(arrLatitude,arrLongitude);
+
+						  var mapOptions = {
+						    zoom: 15,
+						    center: myLatlng
+						  }
+						  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+						  var marker = new google.maps.Marker({
+						      position: myLatlng,
+						      map: map,
+						      title: 'Hello World!'
+						  });
+			    	}
+			    }
+			    else {
+			        $scope.results = dataArr;
+			    }
+		    }
 			
 			//assign longitude and latitude
 			for (i=0; i<dataArr.length; i++){
 				
 				var arrLongitude = dataArr[i].longitude;
 				var arrLatitude = dataArr[i].latitude;
-
 				var distanceType = "mi";
-
-			    // var img = new Image();
-			    // img.src = "http://maps.googleapis.com/maps/api/staticmap?center=" + arrLatitude + "," + arrLongitude + "&markers=blue&zoom=13&size=300x300&sensor=false";
-
 				var milesAway = distance(pos.coords.longitude, pos.coords.latitude, arrLongitude, arrLatitude) * .6214;
 
 				//convert miles to feet when less than 0.1
@@ -119,7 +112,6 @@ bikeShareApp.controller('FetchBikesCtrl', ['$scope', '$routeParams', '$http', fu
 
 				actualData.stationBeanList[i].milesAway = milesAway.toFixed(2) + ' ' + distanceType;	
 				actualData.stationBeanList[i].distanceType = distanceType;
-				//actualData.stationBeanList[i].img = img;	
 
 			}
 
@@ -127,13 +119,7 @@ bikeShareApp.controller('FetchBikesCtrl', ['$scope', '$routeParams', '$http', fu
 			
 		};
 
-		
-
-
 		navigator.geolocation.getCurrentPosition(geoSuccess);
-
-		//console.log($location.path());
-		//console.log($scope.path);
 
 	});
 }]);

@@ -2,6 +2,8 @@ html, body, #map-canvas {
   height: 200px;
   margin: 0px;
   padding: 0px; }
+  html #front img, body #front img, #map-canvas #front img {
+    max-width: 100%; }
 
 #container {
   padding-left: 0px; }
