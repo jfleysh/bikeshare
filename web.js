@@ -15,4 +15,6 @@ app.get('/bikedetails.html', function(req, res) {
 
 app.use(express.static('public'));
 
-app.listen(3000);
+var port = process.env.PORT || 3000;
+
+app.listen(port);
